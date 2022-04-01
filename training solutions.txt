@@ -1,0 +1,507 @@
+BINARY SEARCH
+_____________
+*To do the binary search, The array must be sorted.
+*If the array is not sorted we canoot apply binary search.
+*We have to sort the array to apply binary search.
+
+
+	we will take number as 
+	5 9 17 23 25 45 59 63 71 89
+*n=10
+*First we will take two variable "LEFT VALUE" and "RIGHT VALUE".
+*There are three cases
+	case 1=data=a[mid]
+	case 2=data<a[mid]
+	case 3=data>a[mid]
+*Data to find out is 59
+
+l+r/2 is the formula.
+l  r  mid
+0  9  4
+5  9  7
+5  6  5
+6  6  6
+
+
+*What if the data is not present in the array?
+lets take data as 60 
+l  r  mid
+0  9  4
+5  9  7
+5  6  5
+6  6  6
+7  6  we have to stop the process here, because if L value is > greater than R value, it means data is not present here
+
+Algorithm
+__________
+
+Binarysearch(a,n,data)
+{
+	l=0,r=n-1;
+	while(l<r)
+	{
+		mid=(l+r/2);
+		if(data== a[mid])
+		return mid;
+		else if (data <a[mid])
+			r=mid-1;
+		else
+			l=mid+1;
+	}
+	return-1;
+}
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+LINEAR SEARCH
+______________	
+
+*Linear search is also known as sequential search
+*Let take the arrays as 
+	15 5 20  35 2 42 67 17
+data=42
+*There are two cases 
+ 	elemet is present
+	element is not present
+
+*If the element is present we have to print the location, and 42 is in 6th position
+*If the element is not present till the end of the array then the searching stops and prints as "element not found".
+
+Working:
+________
+
+*We will start from 0th index and we are going to access each element of the array one by one,we will start from the index 0 is 15 the data 42 is not in the 0th index, we will do this process untill we find the data 42 and stop search
+*We can write iterative funcion using for loop.
+
+for(i=0;i<n;i++)
+	{
+		if(a[i]==data)
+		{
+			print("element found at index %d",i)
+		}
+	}
+*Next case is what if the we use worst case where 41 is the data and search the element in the array and searching starts from 0th index to end of index and stop the search and prints as " element not found".
+ 
+if(i==n)
+{
+	print ("element not found");
+}
+
+*if the i becomes n values it means element not found.
+ 
+____________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+
+JUMP SEARCH
+___________
+*lets take arrays 
+	1 2 3 4 5 6 7 8 9 10 11 12
+*block size m=3
+*total number of element n=12
+
+* if it starts from 1 it wont search for each element instead it will take jump size
+* if the jump size is 3 it skips all the element and will go from inside 0-3, 3-6, 6-9 this way.
+* JUMP SEARCH works only on sorted array
+* we will take search 12
+low=0-3-6-9
+high=3-6-9-12 -> 12 the search number is found
+jump size=0-1-2-3-4-5 total 5 jump
+
+optimum valueof m = d/dm=(n/m+(m-2))=0 
+time complexity is (n/m+(m-1))
+
+*Linear search takes time of =0(n)
+
+*Binary search takes time of =0(logn)
+
+*Jump search takes time of =0(n/m+(m-1))
+
+jump=0(n/m) only in boundary cases
+
+_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+QUICK SORT
+__________
+*Partition of array into two is main part of quick sort
+*If the pivot is 7 than the element which is lesser than 7 must be in the left side
+*If the element which is greater than 7 must be in the right side
+
+value < pivot    value > pivot are dividend into two array
+
+	7 6 10 5 9 2 1 15 7
+    start                 stop
+*we will start from the number 7 and start the process
+*if we find the number which is greater than 7 we will stop the process
+*where we stop the number gets swapped
+
+
+partition(a,lb,ub) #lb means lowerbound and ub means upperbound
+{
+	pivot=a[lb];
+	start=lb;
+	end=ub;
+	while(a[start]<pivot)
+	{
+		start++;
+	}
+	while(a[end]>pivot)
+	{
+		end--;
+	}
+	if(start<end)
+	{
+		swap(a[start],a[end]);
+	}
+}
+swap(a[lb],a[end]);
+return end;
+
+
+
+quick sort(a,lb,ub)
+if(lb<ub)
+{
+	loc=partition(a,lb,ub);
+	quicksort(a,lb,loc=1);
+	quickort(a,loc+1,ub);
+}
+
+
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+
+BUBBLE SORT
+____________
+
+We will array as
+	15 16 6 8 5
+*first element is compared to the second element if the first and second element is not arranged than we have to arrange it in proper way.
+
+*lets compare 15 and 16 it is in proper way so going to next element 
+ 	15 16 6 8 5
+*compare 16 and 6 so it is not arranged in proper way
+	15 6 16 8 5
+*compare 16 and 8 it is not arranged to the proper way
+ 	15 6 8 16 5
+*compare 16 and 5 and re arrange
+	15 6 8 5 16
+
+this steps continue till the elements are sorted in the proper way.
+
+
+
+
+for(i=0;i<n-1;i++)
+	{
+	for(j=0;j<n-1;j++)
+	{
+		if(a[i]>a[j+1])
+			{
+			temp=a[j];
+			a[j]=a[j+1];
+			a[j+1]=temp;
+			}
+	}
+	}
+
+
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+
+MERGE SORT
+__________
+
+*The array is divided into two part of array
+*splitting them into equal part element.
+*splitting them until the array becomes single element
+* then using merge sort
+*merge the element in the ascending order
+
+
+
+merge(a,lb,mid,ub)
+{
+	i=lb;
+	j=mid+1;
+	k=lb;
+	whie(i<=mid && j<=ub)
+	{
+		if(a[i]<=a[j])
+		{
+			b[k]=a[i];
+			i==;
+		}
+		else
+		{
+			b[k]=a[j];
+			j++;
+		}
+		k++;
+	}
+	if(i>mid)
+	{
+		while(j<=ub)
+		{
+			b[k]=a[j];
+			j++;
+			k++;
+		}
+		else
+		{
+			while(i<=mid)
+			{
+				b[k]=ai];
+				i++;
+				k++;
+			}
+}
+
+__________________________________________________________________________________________________________________________________________________________________________________________________________________
+	
+
+
+
+
+Insertion
+
+for (i = 1; i < n; i++) { 
+element = array[i]; 
+j = i - 1; 
+while (j >= 0 && array[j] > element)
+ { 
+array[j + 1] = array[j]; 
+j = j - 1; 
+} 
+array[j + 1] = element; 
+
+__________________________________________________________________________________________________________________________________________________________________________
+
+
+
+		Selection
+
+for (i = 0; i < n-1; i++) 
+{
+min_element = i; 
+for (j = i+1; j < n; j++) 
+if (array[j] < array[min_element]) 
+min_element = j; 
+swap(&array[min_element], &array[i]); 
+} 
+
+___________________________________________________________________________________________________________________________________________________________________________
+
+
+		Heap
+
+j=2*i;&nbsp; &nbsp;
+if(j+1<=Number && Heap_of_Numbers[j+1] > Heap_of_Numbers[j])
+j=j+1;
+if( Heap_of_Numbers[j] < Heap_of_Numbers[i])
+Reference=0;
+else
+{
+copy=Heap_of_Numbers[i];
+Heap_of_Numbers[i]=Heap_of_Numbers[j];
+Heap_of_Numbers[j]=copy;
+i=j;
+}
+_________________________________________________________________________________________________________________________________________________________________________________
+
+
+
+
+
+		fibonncci
+ for(i=2;i<number;++i)//loop starts from 2 because 0 and 1 are already printed    
+ {    
+  n3=n1+n2;    
+  printf(" %d",n3);    
+  n1=n2;    
+  n2=n3;    
+
+____________________________________________________________________________________________________________________________________________________________________________________
+
+
+		factorial
+if (n == 0)  
+    return 1;  
+  else  
+    return(n * factorial(n-1)); 
+_________________________________________________________________________________________________________________________________________________________________________________________________________________________ 
+
+
+
+		Array
+
+for ( i = 0; i < 10; i++ ) 
+{
+      n[ i ] = i + 100;
+   }   
+   for (j = 0; j < 10; j++ ) 
+{
+      printf("Element[%d] = %d\n", j, n[j] );
+   }
+________________________________________________________________________________________________________________________________________________________________________________________
+
+
+
+		Listed list
+
+ struct node *temp,*ptr;
+ temp=(struct node *)malloc(sizeof(struct node));
+ if(temp==NULL)
+
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+
+
+		Palindrome
+
+while(n>0)    
+{    
+r=n%10;    
+sum=(sum*10)+r;    
+n=n/10;    
+}   
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________________ 
+
+
+		Prime number
+
+for(i=2;i<=m;i++)    
+{    
+if(n%i==0)    
+{    
+printf("Number is not prime");    
+flag=1;    
+break;    
+}    
+}    
+
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+		Polymorphism
+
+#include <iostream>    
+using namespace std;    
+class Animal {    
+    public:    
+void eat(){      
+cout<<"Eating...";      
+    }        
+};     
+class Dog: public Animal      
+{      
+ public:    
+ void eat()      
+    {           cout<<"Eating bread...";      
+    }      
+};    
+int main(void) {    
+   Dog d = Dog();      
+   d.eat();    
+   return 0;    
+}    
+
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+
+
+		Encapsulation
+
+#include <iostream>
+using namespace std;
+class EncapsulationDemo {
+   private:
+   int length, breath, height;
+   public:
+   void setValues(int l, int b,int h) {
+      length = l;
+      breath = b;
+      height = h;
+   }
+   void calcVolume() {
+      cout<<"Length = " << length << endl;
+      cout<<"Breath = " << breath << endl;
+      cout<<"Height = " << height << endl;
+      cout<<"Volume = " << length*breath*height << endl;
+   }
+};
+int main() {
+   EncapsulationDemo obj;
+   obj.setValues(5, 3, 2);
+   obj.calcVolume();
+   return 0;
+}
+
+
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+		Inheritance
+#include <iostream>
+ 
+using namespace std;
+
+
+class Shape {
+   public:
+      void setWidth(int w) {
+         width = w;
+      }
+      void setHeight(int h) {
+         height = h;
+      }
+      
+   protected:
+      int width;
+      int height;
+};
+
+
+class Rectangle: public Shape {
+   public:
+      int getArea() { 
+         return (width * height); 
+      }
+};
+
+___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+Abtraction
+
+
+
+#include <iostream>
+using namespace std;
+class Abstraction {
+   private:
+   int length, breadth;
+   public:
+   void setValues(int l, int b) {
+      length = l;
+      breadth = b;
+   }
+   void calcArea() {
+      cout<<"Length = " << length << endl;
+      cout<<"Breadth = " << breadth << endl;
+      cout<<"Area = " << length*breadth << endl;
+   }
+};
+int main() {
+   Abstraction obj;
+   obj.setValues(5, 20);
+   obj.calcArea();
+   return 0;
+}
+
+int main(void) {
+   Rectangle Rect;
+ 
+   Rect.setWidth(5);
+   Rect.setHeight(7);
+
+   // Print the area of the object.
+   cout << "Total area: " << Rect.getArea() << endl;
+
+   return 0;
+}
+
+	
